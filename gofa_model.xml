@@ -1,0 +1,70 @@
+<mujoco model="ABB_gofa_arm">
+<compiler coordinate="local" angle="radian"/>
+<!-- <option gravity="0 0 0"/> -->
+
+
+    <default>
+        <!-- convert the coordinate system to MuJoCo -->
+        <geom type="mesh" xyaxes="1 0 0 0 1 0"/>
+        
+    </default>
+    <asset>
+        <!-- Fusion outputs meshes with mm units by default, but must be converted to m in MuJoCo, hence the scaling -->
+        <mesh name="base" file="link0.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link1" file="link1.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link2" file="link2.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link3" file="link3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link4" file="link4.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link5" file="link5.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link6" file="link6.stl" scale="0.001 0.001 0.001"/>
+    </asset>
+    <worldbody>
+        <body name="base" pos="0 0 0">
+            <geom mesh="base"/>
+            
+            <body name="link1" pos="0.021 -0.1075 -0.001">
+            	<joint name="joint1" type="hinge" pos="0.102 0.1889 0" axis="0 0 1" stiffness = "1000" damping = "5"/>
+                <geom mesh="link1"/>
+                
+                <body name="link2" pos="0.0352 -0.015 0.0">
+    	    		<joint name="joint2" type="hinge" pos="0.065 0 0.265" axis="0 1 0" stiffness = "1000" damping = "50"/>		
+            		<geom mesh="link2"/>
+                    
+                    <body name="link3" pos="0 0.093 0">
+                	<joint name="joint3" type="hinge" pos="0.065 0 0.709" axis="0 1 0" stiffness = "1000" damping = "50"/>
+                        <geom mesh="link3"/>
+                        
+                        <body name="link4" pos="0.065 0.058 -0.00">
+                    		<joint name="joint4" type="hinge" pos="0 0.053 0.8185" axis="1 0 0" stiffness = "1000" damping = "50"/>	
+                        	<geom mesh="link4"/>
+                            
+                        	<body name="link5" pos="0 -0.04 0">
+                			<joint name="joint5" type="hinge" pos="0.47 0 0.82" axis="0 1 0" stiffness = "1000" damping = "50"/>	
+                                	<geom mesh="link5"/>
+                                
+                                <body name="link6" pos="0 0.041 0">
+                            		<joint name="joint6" type="hinge" pos="0.15 0.0525 0.899" axis="1 0 0" stiffness = "1000" damping = "50"/>	
+                                	<geom mesh="link6"/>
+                                    
+                                </body> <!-- Closing tag for link6 -->
+                            </body> <!-- Closing tag for link5 -->
+                        </body> <!-- Closing tag for link4 -->
+                    </body> <!-- Closing tag for link3 -->
+                </body> <!-- Closing tag for link2 -->
+            </body> <!-- Closing tag for link1 -->
+        </body> <!-- Closing tag for base -->
+    </worldbody>
+    
+	<actuator>
+		<!-- Position actuators for each joint with appropriate kp, kv, and control ranges -->
+		<position name="act_joint1" joint="joint1" kp="100" ctrllimited = "true" ctrlrange="-6.28 6.28"/>
+		<position name="act_joint2" joint="joint2" kp="80"  ctrllimited = "true" ctrlrange="-1.57 1.57"/>
+		<position name="act_joint3" joint="joint3" kp="90"  ctrllimited = "true" ctrlrange="-2.0 2.0"/>
+		<position name="act_joint4" joint="joint4" kp="70"  ctrllimited = "true" ctrlrange="-1.57 1.57"/>
+		<position name="act_joint5" joint="joint5" kp="85"  ctrllimited = "true" ctrlrange="-2.5 2.5"/>
+		<position name="act_joint6" joint="joint6" kp="60"  ctrllimited = "true" ctrlrange="-6.28 6.28"/>
+	</actuator>
+    
+    
+</mujoco>
+
